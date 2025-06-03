@@ -15,7 +15,7 @@ class Login
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session()->get("userId") === null) {
+        if (!isLogged()) {
             return redirect("/login")->with("error", "Acesso negado");
         }
 

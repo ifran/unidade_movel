@@ -14,15 +14,20 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get("/test", function () { return view("test"); });
+Route::get("/index", function () { return view("index"); });
+Route::get("/", function () { return view("index"); });
+Route::get("localization/all", [UserController::class, "getAllOnlineLocalization"]);
 
 Route::post("/login", [UserController::class, "makeLogin"]);
 Route::get("/login", function () { return view("login"); });
 
-Route::middleware(['login'])->group(function () {
-    Route::get("/index", function () { return view("index"); });
-    Route::get("/", function () { return view("index"); });
+Route::get("/register/type", function () { return view("register"); });
+Route::get("/register/patient", function () { return view("register-patient"); });
+Route::get("/register/admin", function () { return view("register-admin"); });
 
+Route::middleware(['login'])->group(function () {
     Route::post("localization/save", [UserController::class, "saveLocalization"]);
-    Route::get("localization/all", [UserController::class, "getAllOnlineLocalization"]);
+
+    Route::get("unit", function () { return view("unit"); });
+    Route::get("unit/form", function () { return view("unit-register"); });
 });

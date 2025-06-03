@@ -1,3 +1,4 @@
+@if (isLogged())
 <script>
     navigator.geolocation.watchPosition((pos) => {
         const {latitude, longitude} = pos.coords;
@@ -18,3 +19,4 @@
         });
     });
 </script>
+@endif

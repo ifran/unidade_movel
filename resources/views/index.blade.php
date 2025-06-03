@@ -15,27 +15,19 @@
     });
 
     const allMarkers = L.featureGroup().addTo(map);
-
-    function removeAllExceptMyMarker() {
-        allMarkers.eachLayer((layer) => {
-            if (layer !== myMarker) {
-                allMarkers.removeLayer(layer);
-            }
-        });
-    }
-
     let myMarker = null;
 
     navigator.geolocation.watchPosition((pos) => {
-        const { latitude, longitude } = pos.coords;
+        const {latitude, longitude} = pos.coords;
 
         if (myMarker) {
-            allMarkers.removeLayer(myMarker); // remove o antigo
+            allMarkers.removeLayer(myMarker);
         }
 
-        myMarker = L.marker([latitude, longitude], { icon: redIcon })
+        myMarker = L.marker([latitude, longitude], {icon: redIcon})
             .addTo(allMarkers)
-            .bindPopup("Você está aqui");
+            .bindPopup("Você está aqui")
+            .openPopup();
 
         map.fitBounds(allMarkers.getBounds());
     });
@@ -45,7 +37,11 @@
             url: 'localization/all',
             type: 'GET',
             success: function (resposta) {
-                removeAllExceptMyMarker();
+                allMarkers.eachLayer((layer) => {
+                    if (layer._latlng !== myMarker._latlng) {
+                        allMarkers.removeLayer(layer);
+                    }
+                });
 
                 if (resposta.data.length > 0) {
                     for (i = 0; i < resposta.data.length; i++) {
