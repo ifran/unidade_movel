@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
+Route::get("/test", function () { return view("test"); });
 
-Route::get('/test', function () {
-    return view('test');
-});
+Route::post("/login", [UserController::class, "makeLogin"]);
+Route::get("/login", function () { return view("login"); });
 
-Route::get('/register', function () {
-    return view('register');
+Route::middleware(['login'])->group(function () {
+    Route::get("/index", function () { return view("index"); });
+    Route::get("/", function () { return view("index"); });
+
+    Route::post("localization/save", [UserController::class, "saveLocalization"]);
+    Route::get("localization/all", [UserController::class, "getAllOnlineLocalization"]);
 });

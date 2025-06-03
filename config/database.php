@@ -146,6 +146,10 @@ return [
             'database' => env('REDIS_CACHE_DB', '1'),
         ],
 
+        'pulsetracker' => [
+            'url' => env('PULSETRACKER_REDIS_URL'),
+        ],
+
     ],
 
 ];
