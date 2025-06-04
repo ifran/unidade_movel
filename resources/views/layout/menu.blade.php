@@ -14,12 +14,24 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/company">Dados da Empresa</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/user">Usuários</a>
+                </li>
             @endif
         </ul>
         <form class="form-inline my-2 my-lg-0">
             @if (isLogged())
                 <div class="nav-item">
-                    <a class="nav-link disabled" href="/user">Minha Conta</a>
+                    <button type="button"
+                            class="btn btn-primary"
+                            data-bs-toggle="modal"
+                            data-id="456"
+                            data-bs-target="#shareLocation">
+                        Compartilhar Localização
+                    </button>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link disabled" href="/user/account">Minha Conta</a>
                 </div>
                 <div class="nav-item">
                     <a class="nav-link disabled" href="/logout">Sair</a>
@@ -35,3 +47,4 @@
         </form>
     </div>
 </nav>
+@include("layout.share-location")

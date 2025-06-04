@@ -1,4 +1,4 @@
-@include("header")
+@include("layout.header")
 <div id="map"></div>
 <script>
     const map = L.map('map').setView([0, 0], 13);
@@ -63,4 +63,4 @@
     }, 5000);
 
 </script>
-@include("footer")
+@include("layout.footer")

@@ -1,4 +1,4 @@
-@include("header")
+@include("layout.header")
 <div class="container-fluid d-flex align-items-center h-100 justify-content-center">
     <div class="w-100" style="max-width: 700px;">
         <h2 class="text-center mb-4">Cadastrar Unidade</h2>
@@ -23,4 +23,4 @@
         </form>
     </div>
 </div>
-@include("footer")
+@include("layout.footer")

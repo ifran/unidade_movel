@@ -1,4 +1,4 @@
-@include("header")
+@include("layout.header")
 <div class="d-flex justify-content-center align-items-center h-100">
     <form class="p-4 border rounded bg-white shadow" action="/login" method="post" style="min-width: 300px;">
         @csrf
@@ -24,4 +24,4 @@
         @endif
     </form>
 </div>
-@include("footer")
+@include("layout.footer")

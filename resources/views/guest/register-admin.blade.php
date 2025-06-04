@@ -1,4 +1,4 @@
-@include("header")
+@include("layout.header")
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -97,7 +97,8 @@
                         </div>
                         <div class="form-group">
                             <label for="companyNameSecondary">Nome Fantasia</label>
-                            <input type="text" class="form-control" name="companyNameSecondary" id="companyNameSecondary"
+                            <input type="text" class="form-control" name="companyNameSecondary"
+                                   id="companyNameSecondary"
                                    placeholder="Razão Social">
                         </div>
                         <div class="form-group">
@@ -117,7 +118,9 @@
                     <div class="w-100 p-3" style="background-color: #eee;">
                         <div class="form-group">
                             <p>
-                                Declaro que estou ciente de que todas as informações fornecidas são verdadeiras, completas e refletem com precisão a realidade. Reconheço a importância da veracidade desses dados e assumo total responsabilidade por eles.
+                                Declaro que estou ciente de que todas as informações fornecidas são verdadeiras,
+                                completas e refletem com precisão a realidade. Reconheço a importância da veracidade
+                                desses dados e assumo total responsabilidade por eles.
                             </p>
                         </div>
                         <div class="form-group">
@@ -193,4 +196,4 @@
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
     integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD"
     crossorigin="anonymous"></script>
-@include("footer")
+@include("layout.footer")
