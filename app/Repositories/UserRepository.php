@@ -45,4 +45,9 @@ class UserRepository
 
         return $user->usuario_id;
     }
+
+    public function getUserShareLocationConfiguration()
+    {
+        return Usuario::find(session()->get("userId"))->usuario_localizacao_compartilhada;
+    }
 }

@@ -18,44 +18,34 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Ativo</td>
-                <td>ABC123</td>
-                <td>Odontologia</td>
-                <td>02/06/2025 até 06/06/2025</td>
-                <td>Av Voluntários 15, Porto Alegre</td>
-                <td><input type="checkbox" class="form-check-input"></td>
-                <td>
-                    <button type="button"
-                            class="btn btn-primary"
-                            data-bs-toggle="modal"
-                            data-id="123"
-                            data-bs-target="#exampleModal">
-                        Criar Agenda
-                    </button>
-                </td>
-                <td><input type="checkbox" class="form-check-input"></td>
-            </tr>
-            <tr>
-                <td>Inativo</td>
-                <td>DEF456</td>
-                <td>Geral</td>
-                <td>02/06/2025 até 06/06/2025</td>
-                <td>Av Borges de Medeiros, 15, Porto Alegre</td>
-                <td>
-                    <a href="unit/form/id">Editar</a>
-                </td>
-                <td>
-                    <button type="button"
-                            class="btn btn-primary"
-                            data-bs-toggle="modal"
-                            data-id="456"
-                            data-bs-target="#exampleModal">
-                        Criar Agenda
-                    </button>
-                </td>
-                <td><input type="checkbox" class="form-check-input"></td>
-            </tr>
+            @foreach ($units as $unit)
+                <tr>
+                    <td><?= $unit->unidade_status ?></td>
+                    <td><?= $unit->unidade_placa ?></td>
+                    <td><?= $unit->unidade_especializacao ?></td>
+                    <td></td>
+                    <td><?= $unit->unidade_endereco ?></td>
+                    <td><a href="unit/form/<?=$unit->unidade_id?>">Editar</a></td>
+                    <td>
+                        <button type="button"
+                                class="btn btn-primary"
+                                data-bs-toggle="modal"
+                                data-id="<?= $unit->unidade_id ?>"
+                                data-bs-target="#scheduleUnitModal">
+                            Criar Agenda
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button"
+                                class="btn btn-primary"
+                                data-bs-toggle="modal"
+                                data-id="123"
+                                data-bs-target="#exampleModal">
+                            Ver Agendamentos
+                        </button>
+                    </td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>

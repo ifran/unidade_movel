@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Empresa extends Model
 {
-    protected $table = 'empresa';
-    protected $primaryKey = 'empresa_id';
+    protected $table = "empresa";
+    protected $primaryKey = "empresa_id";
     public $timestamps = false;
 
     protected $fillable = [

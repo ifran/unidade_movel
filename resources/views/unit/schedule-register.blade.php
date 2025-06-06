@@ -1,10 +1,10 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="scheduleUnitModal" tabindex="-1" aria-labelledby="scheduleUnitModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <input type="hidden" id="agendaId">
 
         <div class="modal-content">
             <div class="modal-header justify-content-center">
-                <h4 class="modal-title fs-1 text-center" id="exampleModalLabel">Agendar Disponibilidade</h4>
+                <h4 class="modal-title fs-1 text-center" id="scheduleUnitModalLabel">Agendar Disponibilidade</h4>
             </div>
             <div class="modal-body">
                 <div class="container">

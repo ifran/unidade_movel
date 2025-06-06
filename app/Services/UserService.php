@@ -13,6 +13,7 @@ class UserService
 
         if ($userRepository !== null) {
             session()->put("userId", $userRepository->usuario_id);
+            session()->put("companyId", $userRepository->empresa_id);
 
             return true;
         }
@@ -22,7 +23,12 @@ class UserService
 
     public function saveLocal(?string $latitude, ?string $longitude): void
     {
-        (new UserRepository())->saveLocalWithUpdatedAt($latitude, $longitude);
+        $userRepository = new UserRepository();
+
+        $isUserSharingLocation = $userRepository->getUserShareLocationConfiguration();
+        if ($isUserSharingLocation) {
+            $userRepository->saveLocalWithUpdatedAt($latitude, $longitude);
+        }
     }
 
     public function getAllOnlineLocalization(): array

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UnitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,13 +48,15 @@ Route::post("/admin/save", [UserController::class, "saveAdminWithCompany"]);
 Route::middleware(['login'])->group(function () {
     Route::post("localization/save", [UserController::class, "saveLocalization"]);
 
-    Route::get("unit", function () {
-        return view("unit.index");
-    });
+    Route::get("unit", [UnitController::class, "index"]);
 
     Route::get("unit/form", function () {
         return view("unit.form");
     });
+
+    Route::get("unit/form/{id}", [UnitController::class, "edit"]);
+    Route::post("unit/save", [UnitController::class, "saveNewUnit"]);
+    Route::post("unit/save/{id}", [UnitController::class, "saveEditUnit"]);
 
     Route::get("company", function () {
         return view("company");
