@@ -42,6 +42,8 @@ Route::get("/register/admin", function () {
     return view("guest.admin");
 });
 
+Route::post("/admin/save", [UserController::class, "saveAdminWithCompany"]);
+
 Route::middleware(['login'])->group(function () {
     Route::post("localization/save", [UserController::class, "saveLocalization"]);
 

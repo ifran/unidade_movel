@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\CompanyRepository;
 use App\Repositories\UserRepository;
 
 class UserService
@@ -38,5 +39,28 @@ class UserService
         }
 
         return $all;
+    }
+
+    public function saveUserInformationRelatingWithCompany($userAndCompanyInformation): bool
+    {
+        $companyInformation["companyDocument"] = onlyLettersAndNumbers($userAndCompanyInformation["companyDocument"]);
+        $companyInformation["companyName"] = $userAndCompanyInformation["companyName"];
+        $companyInformation["companyNameSecondary"] = $userAndCompanyInformation["companyNameSecondary"];
+        $companyInformation["address"] = $userAndCompanyInformation["address"];
+
+        $companyRepository = new CompanyRepository();
+        $companyId = $companyRepository->saveCompany($companyInformation);
+
+        $userInformation["name"] = $userAndCompanyInformation["name"];
+        $userInformation["email"] = $userAndCompanyInformation["email"];
+        $userInformation["password"] = md5($userAndCompanyInformation["password"]);
+        $userInformation["phone"] = $userAndCompanyInformation["phone"];
+        $userInformation["document"] = onlyLettersAndNumbers($userAndCompanyInformation["document"]);
+        $userInformation["companyId"] = $companyId;
+
+        $userRepository = new UserRepository();
+        $userRepository->saveUser($userInformation);
+
+        return true;
     }
 }

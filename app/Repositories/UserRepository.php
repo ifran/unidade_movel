@@ -27,4 +27,22 @@ class UserRepository
             ->where("usuario_id", "<>", session()->get("userId"))
             ->get();
     }
+
+    public function saveUser($userInformation): int
+    {
+        $user = Usuario::firstOrNew([
+            "usuario_email" => $userInformation["email"]
+        ]);
+
+        $user->empresa_id = $userInformation["companyId"];
+        $user->usuario_nome=  $userInformation["name"];
+        $user->usuario_senha = $userInformation["password"];
+        $user->usuario_telefone = $userInformation["phone"];
+        $user->usuario_cpf = $userInformation["document"];
+        $user->usuario_tipo = Usuario::TYPE_ADMIN;
+
+        $user->save();
+
+        return $user->usuario_id;
+    }
 }

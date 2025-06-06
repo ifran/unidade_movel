@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Usuario extends Model
@@ -27,4 +26,6 @@ class Usuario extends Model
         'usuario_long',
         'usuario_updated_at'
     ];
+
+    const TYPE_ADMIN = 1;
 }
