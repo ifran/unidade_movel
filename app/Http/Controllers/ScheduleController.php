@@ -13,6 +13,14 @@ class ScheduleController extends Controller
         $scheduleService = new ScheduleService();
         $scheduleService->saveNewSchedule($scheduleInfo);
 
-        return redirect("/index");
+        return redirect("/unit");
+    }
+
+    public function deleteSchedule(Request $request)
+    {
+        $scheduleService = new ScheduleService();
+        $scheduleService->delete($request->route("id"));
+
+        return redirect("/unit");
     }
 }

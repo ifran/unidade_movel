@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header justify-content-center">
-                <h4 class="modal-title fs-1 text-center" id="scheduleUnitModalLabel">Agendar Disponibilidade</h4>
+                <h4 class="modal-title fs-4 text-center" id="scheduleUnitModalLabel">Agendar Disponibilidade</h4>
             </div>
             <form action="schedule/save" method="POST">
                 @csrf

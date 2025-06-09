@@ -58,6 +58,7 @@ Route::middleware(['login'])->group(function () {
     Route::post("unit/save", [UnitController::class, "saveNewUnit"]);
     Route::post("unit/save/{id}", [UnitController::class, "saveEditUnit"]);
 
+    Route::get("schedule/delete/{id}", [ScheduleController::class, "deleteSchedule"]);
     Route::post("schedule/save", [ScheduleController::class, "saveSchedule"]);
 
     Route::get("company", function () {

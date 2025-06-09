@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Repositories\ScheduleRepository;
-use Illuminate\Console\Scheduling\Schedule;
 
 class ScheduleService
 {
@@ -11,5 +10,11 @@ class ScheduleService
     {
         $scheduleRepository = new ScheduleRepository();
         $scheduleRepository->saveSchedule($scheduleInformation);
+    }
+
+    public function delete($scheduleId)
+    {
+        $scheduleRepository = new ScheduleRepository();
+        $scheduleRepository->delete($scheduleId);
     }
 }

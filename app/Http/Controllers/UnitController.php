@@ -11,9 +11,12 @@ class UnitController extends Controller
     public function index(): View
     {
         $unitService = new UnitService();
-        $units = $unitService->getAllUnitsFromLoggedCompany();
+        $units = $unitService->getAllUnitsWithScheduleFromLoggedCompany();
 
-        return view("unit.index")->with("units", $units);
+        return view("unit.index")
+            ->with("units", $units["units"])
+            ->with("schedules", $units["schedules"])
+            ;
     }
 
     public function saveNewUnit(Request $request)

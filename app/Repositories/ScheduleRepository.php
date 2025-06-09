@@ -20,4 +20,26 @@ class ScheduleRepository
         $schedule->agenda_estado = $scheduleInformation["estado"];
         $schedule->save();
     }
+
+    public function getSchedulesByUnitId($unitId)
+    {
+        return Agenda::select([
+            \DB::raw("DATE(agenda_data_ini) AS agenda_data_ini"),
+            \DB::raw("DATE(agenda_data_fim) AS agenda_data_fim"),
+            "agenda_hora_ini",
+            "agenda_hora_fim",
+            "agenda_endereco",
+            "agenda_bairro",
+            "agenda_cidade",
+            "agenda_estado",
+            "agenda_id",
+        ])
+            ->where("unidade_id", $unitId)
+            ->get();
+    }
+
+    public function delete($scheduleId)
+    {
+        return Agenda::where("agenda_id", $scheduleId)->delete();
+    }
 }
