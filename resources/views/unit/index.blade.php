@@ -39,7 +39,7 @@
                         <button type="button"
                                 class="btn btn-primary"
                                 data-bs-toggle="modal"
-                                data-id="123"
+                                data-id="<?= $unit->unidade_id ?>"
                                 data-bs-target="#exampleModal">
                             Ver Agendamentos
                         </button>
