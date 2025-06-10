@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Form Centralizado</title>
+    <title>Mapa da Saúde</title>
+
+    <link rel="icon" href="/caminho/para/seu-icone.ico" type="image/x-icon">
 
     <style>
         #map {

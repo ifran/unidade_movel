@@ -1,5 +1,7 @@
 @include("layout.header")
-<div id="map"></div>
+<div id="map" style="position: relative;">
+    <div id="recenter-btn">Recentralizar</div>
+</div>
 <script>
     const map = L.map('map').setView([0, 0], 13);
 
@@ -16,6 +18,8 @@
 
     const allMarkers = L.featureGroup().addTo(map);
     let myMarker = null;
+    let firstUser = true;
+    let firstUnits = true;
 
     navigator.geolocation.watchPosition((pos) => {
         const {latitude, longitude} = pos.coords;
@@ -29,7 +33,10 @@
             .bindPopup("Você está aqui")
             .openPopup();
 
-        map.fitBounds(allMarkers.getBounds());
+        if (firstUser) {
+            map.fitBounds(allMarkers.getBounds());
+            firstUser = false;
+        }
     });
 
     setInterval(function () {
@@ -49,10 +56,13 @@
 
                         L.marker([info.latitude, info.longitude])
                             .addTo(allMarkers)
-                            .bindPopup("<a href='google.com'>" + info.description + "</a>");
+                            .bindPopup("<a href='/unit/schedule/" + info.unitId + "' >" + info.description + "</a>");
                     }
 
-                    map.fitBounds(allMarkers.getBounds());
+                    if (firstUnits) {
+                        map.fitBounds(allMarkers.getBounds());
+                        firstUnits = false;
+                    }
                 }
             },
             error: function (erro) {
@@ -62,5 +72,27 @@
         });
     }, 5000);
 
+</script>
+<style>
+    #recenter-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1000;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        padding: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+</style>
+<script>
+    document.getElementById('recenter-btn').addEventListener('click', () => {
+        if (allMarkers.getLayers().length > 0) {
+            map.fitBounds(allMarkers.getBounds());
+        }
+    });
 </script>
 @include("layout.footer")

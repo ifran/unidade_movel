@@ -46,4 +46,9 @@ class UnitController extends Controller
 
         return redirect("/unit");
     }
+
+    public function getAllUnitScheduleByUnitId(Request $request)
+    {
+        return view("user.schedule-appointment");
+    }
 }

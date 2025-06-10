@@ -44,6 +44,8 @@ Route::get("/register/admin", function () {
     return view("guest.admin");
 });
 
+Route::get("unit/schedule/{id}", [UnitController::class, "getAllUnitScheduleByUnitId"]);
+
 Route::post("/admin/save", [UserController::class, "saveAdminWithCompany"]);
 
 Route::middleware(['login'])->group(function () {
@@ -55,6 +57,7 @@ Route::middleware(['login'])->group(function () {
 
     Route::get("unit", [UnitController::class, "index"]);
     Route::get("unit/form/{id}", [UnitController::class, "edit"]);
+
     Route::post("unit/save", [UnitController::class, "saveNewUnit"]);
     Route::post("unit/save/{id}", [UnitController::class, "saveEditUnit"]);
 
@@ -76,6 +79,8 @@ Route::middleware(['login'])->group(function () {
     Route::get("user/account", function () {
         return view("user.account");
     });
+
+    Route::post("user/location/share", [UserController::class, "shareLocation"]);
 
     Route::get("logout", function () {
         session()->invalidate();

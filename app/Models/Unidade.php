@@ -14,6 +14,7 @@ class Unidade extends Model
     protected $fillable = [
         "unidade_id",
         "empresa_id",
+        "unidade_nome",
         "unidade_endereco",
         "unidade_status",
         "unidade_especializacao",

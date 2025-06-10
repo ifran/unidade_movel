@@ -54,4 +54,12 @@ class UserController extends Controller
 
         return redirect("/register/admin")->with("error", "Problemas no login");
     }
+
+    public function shareLocation(Request $request)
+    {
+        $userService = new UserService();
+        $userService->shareLocationByUnitId($request->get("userUnitId"));
+
+        return redirect("index");
+    }
 }

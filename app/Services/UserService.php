@@ -13,6 +13,7 @@ class UserService
 
         if ($userRepository !== null) {
             session()->put("userId", $userRepository->usuario_id);
+            session()->put("unitId", $userRepository->unidade_id);
             session()->put("companyId", $userRepository->empresa_id);
 
             return true;
@@ -38,9 +39,10 @@ class UserService
         $all = [];
         $i = 0;
         foreach ($localizations as $localization) {
+            $all[$i]["unitId"] = $localization->unidade_id;
             $all[$i]["latitude"] = $localization->usuario_lat;
             $all[$i]["longitude"] = $localization->usuario_long;
-            $all[$i]["description"] = $localization->unidade_especeliazacao;
+            $all[$i]["description"] = $localization->unidade_especializacao ?? $localization->unidade_nome;
             $i++;
         }
 
@@ -68,5 +70,14 @@ class UserService
         $userRepository->saveUser($userInformation);
 
         return true;
+    }
+
+    public function shareLocationByUnitId($unitId)
+    {
+        $userRepository = new UserRepository();
+        $userRepository->updateLocation($unitId);
+
+        session()->put("unitId", $unitId);
+        session()->put("shareLocation", 1);
     }
 }

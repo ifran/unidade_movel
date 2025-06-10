@@ -4,13 +4,23 @@ namespace App\Services;
 
 use App\Repositories\ScheduleRepository;
 use App\Repositories\UnitRepository;
+use Illuminate\Support\Facades\Session;
 
 class UnitService
 {
+    public function getAllUnitsFromLoggedCompany()
+    {
+        if (Session::get("companyId") !== null) {
+            $unitRepository = new UnitRepository();
+            return $unitRepository->getUnitsByCompany(session()->get("companyId"));
+        }
+
+        return [];
+    }
+
     public function getAllUnitsWithScheduleFromLoggedCompany(): array
     {
-        $unitRepository = new UnitRepository();
-        $units = $unitRepository->getUnitsByCompany(session()->get("companyId"));
+        $units = $this->getAllUnitsFromLoggedCompany();
 
         $scheduleRepository = new ScheduleRepository();
         $scheduleReturned = [];
@@ -21,7 +31,7 @@ class UnitService
                 $schedule = $schedules[$i];
                 $scheduleReturned[$unit->unidade_id][$i]["info"] =
                     "$schedule->agenda_data_ini até $schedule->agenda_data_fim
-                        ($schedule->agenda_hora_ini - $schedule->agenda_hora_fim) em
+                        ($schedule->agenda_hora_ini - $schedule->agenda_hora_fim) em<br>
                         $schedule->agenda_endereco,
                         $schedule->agenda_bairro,
                         $schedule->agenda_cidade -

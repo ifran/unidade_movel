@@ -5,6 +5,15 @@
         <form action="/unit/save/<?= $unitInformation->unidade_id ?? null ?>" method="POST">
             @csrf
             <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Nome Identificador</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control"
+                           value="<?= $unitInformation->unidade_nome ?? null ?>" name="nome"
+                           placeholder="Nome">
+                </div>
+            </div>
+
+            <div class="row mb-3">
                 <label class="col-sm-3 col-form-label">Especialização</label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control"

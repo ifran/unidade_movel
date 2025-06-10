@@ -15,6 +15,7 @@ class UnitRepository
     {
         $unit = new Unidade();
         $unit->unidade_placa = $unitInformation["placa"];
+        $unit->unidade_nome = $unitInformation["nome"];
         $unit->unidade_especializacao = $unitInformation["especializacao"];
         $unit->empresa_id = session()->get("companyId");
         $unit->save();
@@ -33,6 +34,7 @@ class UnitRepository
             ->where("unidade_id", $unitId)
             ->update([
                 "unidade_placa" => $unitInformation["placa"],
+                "unidade_nome" => $unitInformation["nome"],
                 "unidade_especializacao" => $unitInformation["especializacao"],
             ]);
     }

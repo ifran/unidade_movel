@@ -8,6 +8,7 @@
             <thead class="table-light">
             <tr>
                 <th>Status</th>
+                <th>Nome</th>
                 <th>Placa</th>
                 <th>Especialização</th>
                 <th>Disponibilidade</th>
@@ -20,6 +21,7 @@
             @foreach ($units as $unit)
                 <tr>
                     <td><?= $unit->unidade_status ?></td>
+                    <td><?= $unit->unidade_nome ?></td>
                     <td><?= $unit->unidade_placa ?></td>
                     <td><?= $unit->unidade_especializacao ?></td>
                     <td>

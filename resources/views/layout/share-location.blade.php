@@ -1,27 +1,30 @@
 <div class="modal fade" id="shareLocation" tabindex="-1" aria-labelledby="shareLocationLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <input type="hidden" id="agendaId">
-
         <div class="modal-content">
-            <div class="modal-header justify-content-center">
-                <h4 class="modal-title fs-1 text-center" id="shareLocationLabel">Compartilhar Localização</h4>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                    <form>
+            <form action="user/location/share" method="POST">
+                @csrf
+                <div class="modal-header justify-content-center">
+                    <h4 class="modal-title fs-3 text-center" id="shareLocationLabel">Compartilhar Localização</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
                         <div class="mb-3">
                             <label for="bairro" class="form-label">Selecionar Unidade</label>
-                            <select name="" id="" class="form-control" >
-                                <option value="">-- Selecione --</option>
+                            <select name="userUnitId" id="userUnitId" class="form-control">
+                                @foreach ($unitsLocations as $unitsLocation)
+                                    <option <?= (session()->get("unitId") !== null && session()->get("unitId") == $unitsLocation->unidade_id ? "selected" : "") ?> value="<?=$unitsLocation->unidade_id?>">
+                                            <?= $unitsLocation->unidade_nome . " - " . $unitsLocation->unidade_especializacao ?>
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <input type="submit" class="btn btn-primary" value="Salvar">
+                </div>
+            </form>
         </div>
     </div>
 </div>

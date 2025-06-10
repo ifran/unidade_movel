@@ -22,8 +22,8 @@ class UserRepository
 
     public function getLastUpdatedLocalization()
     {
-        return Usuario::select(["unidade.unidade_especializacao", "usuario_lat", "usuario_long"])
-            ->leftJoin("unidade", "unidade.unidade_id", "=", "usuario.unidade_id")
+        return Usuario::select(["unidade.unidade_id", "unidade.unidade_especializacao", "usuario_lat", "usuario_long"])
+            ->join("unidade", "unidade.unidade_id", "=", "usuario.unidade_id")
             ->where("usuario_id", "<>", session()->get("userId"))
             ->get();
     }
@@ -49,5 +49,13 @@ class UserRepository
     public function getUserShareLocationConfiguration()
     {
         return Usuario::find(session()->get("userId"))->usuario_localizacao_compartilhada;
+    }
+
+    public function updateLocation($unitId)
+    {
+        $user = Usuario::find(session()->get("userId"));
+        $user->usuario_localizacao_compartilhada = 1;
+        $user->unidade_id = $unitId;
+        $user->save();
     }
 }
