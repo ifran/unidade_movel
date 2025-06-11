@@ -28,14 +28,14 @@ class UserRepository
             ->get();
     }
 
-    public function saveUser($userInformation): int
+    public function saveAdminUser($userInformation): int
     {
         $user = Usuario::firstOrNew([
             "usuario_email" => $userInformation["email"]
         ]);
 
         $user->empresa_id = $userInformation["companyId"];
-        $user->usuario_nome=  $userInformation["name"];
+        $user->usuario_nome = $userInformation["name"];
         $user->usuario_senha = $userInformation["password"];
         $user->usuario_telefone = $userInformation["phone"];
         $user->usuario_cpf = $userInformation["document"];
@@ -56,6 +56,18 @@ class UserRepository
         $user = Usuario::find(session()->get("userId"));
         $user->usuario_localizacao_compartilhada = 1;
         $user->unidade_id = $unitId;
+        $user->save();
+    }
+
+    public function savePatientUser($patientInformation)
+    {
+        $user = new Usuario();
+        $user->usuario_nome = $patientInformation["name"];
+        $user->usuario_email = $patientInformation["email"];
+        $user->usuario_senha = md5($patientInformation["password"]);
+        $user->usuario_telefone = $patientInformation["phone"];
+        $user->usuario_cpf = $patientInformation["document"];
+        $user->usuario_tipo = Usuario::TYPE_PATIENT;
         $user->save();
     }
 }

@@ -62,4 +62,17 @@ class UserController extends Controller
 
         return redirect("index");
     }
+
+    public function savePatient(Request $request)
+    {
+        $userService = new UserService();
+        $userService->saveUser($request->all());
+
+        $userService = (new UserService())->makeLogin($request->get("email"), $request->get("password"));
+        if ($userService) {
+            return redirect("/index");
+        }
+
+        return redirect("/index");
+    }
 }

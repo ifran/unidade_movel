@@ -28,4 +28,5 @@ class Usuario extends Model
     ];
 
     const TYPE_ADMIN = 1;
+    const TYPE_PATIENT = 2;
 }

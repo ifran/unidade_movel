@@ -40,11 +40,11 @@ Route::get("/register/patient", function () {
     return view("guest.patient");
 });
 
+Route::post("/patient/save", [UserController::class, "savePatient"]);
+
 Route::get("/register/admin", function () {
     return view("guest.admin");
 });
-
-Route::get("unit/schedule/{id}", [UnitController::class, "getAllUnitScheduleByUnitId"]);
 
 Route::post("/admin/save", [UserController::class, "saveAdminWithCompany"]);
 
@@ -57,6 +57,7 @@ Route::middleware(['login'])->group(function () {
 
     Route::get("unit", [UnitController::class, "index"]);
     Route::get("unit/form/{id}", [UnitController::class, "edit"]);
+    Route::get("unit/schedule/{id}", [UnitController::class, "getAllUnitScheduleByUnitId"]);
 
     Route::post("unit/save", [UnitController::class, "saveNewUnit"]);
     Route::post("unit/save/{id}", [UnitController::class, "saveEditUnit"]);

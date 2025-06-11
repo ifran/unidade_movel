@@ -32,6 +32,12 @@ class UserService
         }
     }
 
+    public function saveUser($userInformation)
+    {
+        $userRepository = new UserRepository();
+        $userRepository->savePatientUser($userInformation);
+    }
+
     public function getAllOnlineLocalization(): array
     {
         $localizations = (new UserRepository())->getLastUpdatedLocalization();
@@ -67,7 +73,7 @@ class UserService
         $userInformation["companyId"] = $companyId;
 
         $userRepository = new UserRepository();
-        $userRepository->saveUser($userInformation);
+        $userRepository->saveAdminUser($userInformation);
 
         return true;
     }
