@@ -15,6 +15,7 @@ class UserService
             session()->put("userId", $userRepository->usuario_id);
             session()->put("unitId", $userRepository->unidade_id);
             session()->put("companyId", $userRepository->empresa_id);
+            session()->put("userType", $userRepository->usuario_tipo);
 
             return true;
         }
