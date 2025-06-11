@@ -64,6 +64,7 @@ Route::middleware(['login'])->group(function () {
 
     Route::get("schedule/delete/{id}", [ScheduleController::class, "deleteSchedule"]);
     Route::post("schedule/save", [ScheduleController::class, "saveSchedule"]);
+    Route::post("schedule/appointment/save", [ScheduleController::class, "saveAppointment"]);
 
     Route::get("company", function () {
         return view("company");

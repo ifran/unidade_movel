@@ -15,8 +15,7 @@ class UnitController extends Controller
 
         return view("unit.index")
             ->with("units", $units["units"])
-            ->with("schedules", $units["schedules"])
-            ;
+            ->with("schedules", $units["schedules"]);
     }
 
     public function saveNewUnit(Request $request)
@@ -47,8 +46,18 @@ class UnitController extends Controller
         return redirect("/unit");
     }
 
-    public function getAllUnitScheduleByUnitId(Request $request)
+    public function getAllUnitScheduleByUnitId(Request $request): View
     {
-        return view("user.schedule-appointment");
+        $unitService = new UnitService();
+        $schedules = $unitService->getSchedulesByUnitId($request->route("id"));
+        $hours = array_values(array_unique(array_merge(...array_values($schedules["schedules"]))));
+
+        return view("user.schedule-appointment")
+            ->with("schedules", $schedules["schedules"])
+            ->with("name", $schedules["name"])
+            ->with("description", $schedules["description"])
+            ->with("appointmentCounts", $schedules["appointmentCounts"])
+            ->with("unitId", $request->route("id"))
+            ->with("hours", $hours);
     }
 }

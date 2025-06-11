@@ -42,4 +42,9 @@ class ScheduleRepository
     {
         return Agenda::where("agenda_id", $scheduleId)->delete();
     }
+
+    public function getAllByUnitId($unitId)
+    {
+        return Agenda::where("unidade_id", $unitId)->get();
+    }
 }

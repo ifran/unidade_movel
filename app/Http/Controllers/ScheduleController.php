@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AppointmentService;
 use App\Services\ScheduleService;
 use Illuminate\Http\Request;
 
@@ -22,5 +23,13 @@ class ScheduleController extends Controller
         $scheduleService->delete($request->route("id"));
 
         return redirect("/unit");
+    }
+
+    public function saveAppointment(Request $request)
+    {
+        $appointment = new AppointmentService();
+        $appointment->saveNewAppointment($request->all());
+
+        return redirect("/unit/schedule/" . $request->get("unitId"));
     }
 }

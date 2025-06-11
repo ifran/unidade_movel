@@ -28,6 +28,12 @@ class UnitRepository
             ->first();
     }
 
+    public function getUnitInformationByUnitId($unitId)
+    {
+        return Unidade::where("unidade_id", $unitId)
+            ->first();
+    }
+
     public function editInformation($unitId, $unitInformation)
     {
         return Unidade::where("empresa_id", session()->get("companyId"))

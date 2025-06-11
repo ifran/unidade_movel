@@ -1,56 +1,38 @@
 @include("layout.header")
 <div class="container-fluid mt-5">
-    <h3>Unidades</h3>
-    <a href="unit/form" class="btn btn-secondary mb-4">Criar unidade</a>
+    <h3>Unidade: <?= $name ?? null ?> - <?= $description ?? null ?></h3>
 
     <div class="table-responsive">
         <table class="table table-bordered align-middle text-center">
-            <thead class="table-light">
             <tr>
-                <th>Status</th>
-                <th>Nome</th>
-                <th>Placa</th>
-                <th>Especialização</th>
-                <th>Disponibilidade</th>
-                <th>Editar</th>
-                <th>Criar Agenda</th>
-                <th>Ver Agendamentos</th>
+                @foreach ($schedules as $dia => $horas)
+                    <th><?= $dia ?></th>
+                @endforeach
             </tr>
-            </thead>
-            <tbody>
 
+            <tr>
+            @foreach ($hours as $hour)
                 <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td>
-
-                    </td>
-                    <td><a href="unit/form/">Editar</a></td>
-                    <td>
-                        <button type="button"
-                                class="btn btn-primary"
-                                data-bs-toggle="modal"
-                                data-id=" "
-                                data-bs-target="#scheduleUnitModal">
-                            Criar Agenda
-                        </button>
-                    </td>
-                    <td>
-                        <button type="button"
-                                class="btn btn-primary"
-                                data-bs-toggle="modal"
-                                data-id=" "
-                                data-bs-target="#showSchedule">
-                            Ver Agendamentos
-                        </button>
-                    </td>
+                    @foreach ($schedules as $day => $horas)
+                        <td>
+                            @if (in_array($hour, $horas))
+                                <button type="button"
+                                        class="btn btn-primary"
+                                        data-bs-toggle="modal"
+                                        data-hour="<?=$hour?>"
+                                        data-day="<?=$day?>"
+                                        data-unit-id="<?=$unitId?>"
+                                        data-bs-target="#makeAppointment">
+                                        <?= $hour ?> - <?= $appointmentCounts[$day][$hour]  ?>
+                                </button>
+                            @endif
+                        </td>
+                    @endforeach
                 </tr>
-
-            </tbody>
+            @endforeach
         </table>
     </div>
 </div>
 
+@include("user.make-appointment")
 @include("layout.footer")
