@@ -7,6 +7,13 @@ if (!function_exists('isLogged')) {
     }
 }
 
+if (!function_exists('isAdmin')) {
+    function isAdmin(): bool
+    {
+        return session()->get("userType") !== null && session()->get("userType") === \App\Models\Usuario::TYPE_ADMIN;
+    }
+}
+
 if (!function_exists('pre')) {
     function pre($params): void
     {
