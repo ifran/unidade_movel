@@ -8,9 +8,13 @@ class CompanyRepository
 {
     public function saveCompany($companyInformation): int
     {
-        $company = Empresa::firstOrNew([
-            "empresa_cnpj" => $companyInformation["companyDocument"]
-        ]);
+        if (session()->get("companyId") !== null) {
+            $company = Empresa::find(session()->get("companyId"));
+        } else {
+            $company = Empresa::firstOrNew([
+                "empresa_cnpj" => $companyInformation["companyDocument"]
+            ]);
+        }
 
         $company->empresa_razao_social = $companyInformation["companyName"];
         $company->empresa_nome_fantasia = $companyInformation["companyNameSecondary"];
@@ -18,5 +22,10 @@ class CompanyRepository
         $company->save();
 
         return $company->empresa_id;
+    }
+
+    public function getCompanyById($companyId)
+    {
+        return Empresa::find($companyId);
     }
 }

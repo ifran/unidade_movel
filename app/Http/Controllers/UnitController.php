@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AppointmentService;
 use App\Services\UnitService;
 use Illuminate\Http\Request;
 use \Illuminate\View\View;
@@ -59,5 +60,13 @@ class UnitController extends Controller
             ->with("appointmentCounts", $schedules["appointmentCounts"])
             ->with("unitId", $request->route("id"))
             ->with("hours", $hours);
+    }
+
+    public function getAllUnitAppointmentsByUnitId(Request $request)
+    {
+        $unitId = $request->route("id");
+
+        $appointmentService = new AppointmentService();
+        return response()->json(["success" => true, "data" => $appointmentService->getAllByUnit($unitId)]);
     }
 }

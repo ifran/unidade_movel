@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <div class="container">
                     <div class="table-responsive">
-                        <table class="table table-bordered align-middle text-center">
+                        <table class="table table-bordered align-middle text-center" id="scheduleTable">
                             <thead class="table-light">
                             <tr>
                                 <th>Status</th>
@@ -20,7 +20,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr id="none">
                                 <td>
                                     <select class="form-control sm">
                                         <option value="0">Aguardando Atendimento</option>
@@ -46,12 +46,39 @@
 </div>
 
 <script>
-    const modal = document.getElementById('showSchedule');
-    modal.addEventListener('show.bs.modal', function (event) {
+    const scheduleModal = document.getElementById('showSchedule');
+    scheduleModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
         const id = button.getAttribute('data-id');
-        const inputId = modal.querySelector('#unitId');
 
-        inputId.value = id;
+        // Limpa a tabela antes de carregar novamente
+        const tableBody = scheduleModal.querySelector('#scheduleTable tbody');
+        tableBody.innerHTML = 'Buscando dados...';
+
+        fetch(`/unit/schedules/appointments/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                tableBody.innerHTML = '';
+
+                console.log(data.data);
+                if (data.data.length > 0) {
+                    data.data.forEach(schedule => {
+                        const row = document.createElement('tr');
+
+                        row.innerHTML = `
+                        <td>${schedule.date}</td>
+                        <td>${schedule.time}</td>
+                        <td>${schedule.patientName}</td>
+                        <td>${schedule.status}</td>
+                    `;
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    tableBody.innerHTML = "Sem dados no momento";
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao carregar agendamentos:', error);
+            });
     });
 </script>

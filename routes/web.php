@@ -3,6 +3,7 @@
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,6 +59,7 @@ Route::middleware(['login'])->group(function () {
     Route::get("unit", [UnitController::class, "index"]);
     Route::get("unit/form/{id}", [UnitController::class, "edit"]);
     Route::get("unit/schedule/{id}", [UnitController::class, "getAllUnitScheduleByUnitId"]);
+    Route::get("unit/schedules/appointments/{id}", [UnitController::class, "getAllUnitAppointmentsByUnitId"]);
 
     Route::post("unit/save", [UnitController::class, "saveNewUnit"]);
     Route::post("unit/save/{id}", [UnitController::class, "saveEditUnit"]);
@@ -66,9 +68,8 @@ Route::middleware(['login'])->group(function () {
     Route::post("schedule/save", [ScheduleController::class, "saveSchedule"]);
     Route::post("schedule/appointment/save", [ScheduleController::class, "saveAppointment"]);
 
-    Route::get("company", function () {
-        return view("company");
-    });
+    Route::get("company", [CompanyController::class, "index"]);
+    Route::post("company/save", [CompanyController::class, "saveCompany"]);
 
     Route::get("user", function () {
         return view("user.index");

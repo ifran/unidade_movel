@@ -27,4 +27,12 @@ class AppointmentRepository
             ->where("status", Agendamento::WAITING)
             ->count();
     }
+
+    public function getAllByUnit($unitId)
+    {
+        return Agendamento::select(["agendamento.data", "agendamento.hora", "usuario_nome", "agendamento.status"])
+            ->join("usuario", "usuario.usuario_id", "=", "agendamento.usuario_id")
+            ->where("agendamento.unidade_id", $unitId)
+            ->get();
+    }
 }
