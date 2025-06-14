@@ -13,28 +13,19 @@
                 <th>Telefone</th>
                 <th>Unidade Associada</th>
                 <th>Editar</th>
-                <th>Ver Agendamentos</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Nome</td>
-                <td>E-mail</td>
-                <td>Documento</td>
-                <td>Telefone</td>
-                <td>Unidade Associada</td>
-                <td>Editar</td>
-                <td>Ver Agendamentos</td>
-            </tr>
-            <tr>
-                <td>Nome</td>
-                <td>E-mail</td>
-                <td>Documento</td>
-                <td>Telefone</td>
-                <td>Unidade Associada</td>
-                <td>Editar</td>
-                <td>Ver Agendamentos</td>
-            </tr>
+            @foreach ($users as $user)
+                <tr>
+                    <td><?=$user->usuario_nome?></td>
+                    <td><?=$user->usuario_email?></td>
+                    <td><?=$user->usuario_cpf?></td>
+                    <td><?=$user->usuario_telefone?></td>
+                    <td><?=$user->unidade_nome?></td>
+                    <td><a href="/user/form/<?=$user->usuario_id?>">Editar</a></td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>

@@ -3,7 +3,7 @@
     navigator.geolocation.watchPosition((pos) => {
         const {latitude, longitude} = pos.coords;
         $.ajax({
-            url: 'localization/save',
+            url: '/localization/save',
             type: 'POST',
             data: {
                 lat: latitude,

@@ -1,37 +1,46 @@
 @include("layout.header")
 <div class="container-fluid d-flex align-items-center h-100 justify-content-center">
     <div class="w-100" style="max-width: 700px;">
-        <h2 class="text-center mb-4">Cadastrar Usuário</h2>
-        <div class="w-100 p-3" style="background-color: #eee;">
-            <div class="form-group">
-                <label for="name">Nome completo</label>
-                <input type="text" class="form-control" id="name"
-                       placeholder="Nome Sobrenome" name="name">
+        <form action="/user/form/<?=$userInformation->usuario_id ?? null?>" method="post">
+            @csrf
+            <h2 class="text-center mb-4"><?= isset($userInformation) && $userInformation->usuario_id !== null ? "Editar Usuário" : "Cadastrar Usuário" ?></h2>
+            <div class="w-100 p-3" style="background-color: #eee;">
+                <div class="form-group">
+                    <label for="name">Nome completo</label>
+                    <input type="text" class="form-control" id="name"
+                           placeholder="Nome Sobrenome" name="name"
+                           value="<?=$userInformation->usuario_nome ?? null?>">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="text" class="form-control" id="email"
+                           placeholder="name@mail.com" name="email"
+                           value="<?=$userInformation->usuario_email ?? null?>">
+                </div>
+                @if (!isset($userInformation))
+                    <div class="form-group">
+                        <label for="password">Senha</label>
+                        <input type="password" class="form-control" id="password"
+                               placeholder="****" name="password">
+                    </div>
+                @endif
+                <div class="form-group">
+                    <label for="phone">Telefone</label>
+                    <input type="text" class="form-control" id="phone"
+                           placeholder="(xx) x xxxx-xxxx" name="phone"
+                           value="<?=$userInformation->usuario_telefone ?? null?>">
+                </div>
+                <div class="form-group">
+                    <label for="document">CPF</label>
+                    <input type="text" class="form-control" id="document"
+                           placeholder="xxx.xxx.xxx-xx  " name="document"
+                           value="<?=$userInformation->usuario_cpf ?? null?>">
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-secondary" value="Concluir">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                <input type="text" class="form-control" id="email"
-                       placeholder="name@mail.com">
-            </div>
-            <div class="form-group">
-                <label for="password">Senha</label>
-                <input type="password" class="form-control" id="password"
-                       placeholder="***">
-            </div>
-            <div class="form-group">
-                <label for="phone">Telefone</label>
-                <input type="text" class="form-control" id="phone"
-                       placeholder="(xx) x xxxx-xxxx">
-            </div>
-            <div class="form-group">
-                <label for="document">CPF</label>
-                <input type="text" class="form-control" id="document"
-                       placeholder="xxx.xxx.xxx-xx  ">
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-secondary">Concluir</button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 @include("layout.footer")

@@ -30,13 +30,23 @@ class UserRepository
 
     public function saveAdminUser($userInformation): int
     {
-        $user = Usuario::firstOrNew([
-            "usuario_email" => $userInformation["email"]
-        ]);
+        if (session()->get("userId") == null) {
+            $user = Usuario::firstOrNew([
+                "usuario_email" => $userInformation["email"]
+            ]);
+        } else {
+            $user = Usuario::find(session()->get("userId"));
+        }
 
         $user->empresa_id = $userInformation["companyId"];
         $user->usuario_nome = $userInformation["name"];
-        $user->usuario_senha = $userInformation["password"];
+
+        if (!empty($userInformation["password"])) {
+            if ($user->usuario_senha !== $userInformation["password"]) {
+                $user->usuario_senha = md5($userInformation["password"]);
+            }
+        }
+
         $user->usuario_telefone = $userInformation["phone"];
         $user->usuario_cpf = $userInformation["document"];
         $user->usuario_tipo = Usuario::TYPE_ADMIN;
@@ -68,6 +78,36 @@ class UserRepository
         $user->usuario_telefone = $patientInformation["phone"];
         $user->usuario_cpf = $patientInformation["document"];
         $user->usuario_tipo = Usuario::TYPE_PATIENT;
+        $user->save();
+    }
+
+    public function getUsersByCompanyId($companyId)
+    {
+        return Usuario::select([
+            "usuario_nome",
+            "usuario_email",
+            "usuario_cpf",
+            "usuario_telefone",
+            "unidade_nome",
+            "usuario_id"
+        ])
+            ->leftJoin("unidade", "unidade.unidade_id", "=", "usuario.unidade_id")
+            ->where("usuario.empresa_id", $companyId)
+            ->get();
+    }
+
+    public function getUserInformationById($userId)
+    {
+        return Usuario::find($userId);
+    }
+
+    public function saveChanges($userId, $userInformation)
+    {
+        $user = $this->getUserInformationById($userId);
+        $user->usuario_nome = $userInformation["name"];
+        $user->usuario_email = $userInformation["email"];
+        $user->usuario_telefone = $userInformation["phone"];
+        $user->usuario_cpf = $userInformation["document"];
         $user->save();
     }
 }

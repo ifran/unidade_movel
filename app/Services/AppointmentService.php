@@ -38,4 +38,10 @@ class AppointmentService
                 return "";
         }
     }
+
+    public function getAllFromLoggedUser()
+    {
+        $appointmentRepository = new AppointmentRepository();
+        return $appointmentRepository->getAllByUserId(session()->get("userId"));
+    }
 }

@@ -39,6 +39,13 @@ class UserService
         $userRepository->savePatientUser($userInformation);
     }
 
+    public function saveAdminUser($userInformation)
+    {
+        $userInformation["companyId"] = session()->get("companyId");
+        $userRepository = new UserRepository();
+        $userRepository->saveAdminUser($userInformation);
+    }
+
     public function getAllOnlineLocalization(): array
     {
         $localizations = (new UserRepository())->getLastUpdatedLocalization();
@@ -68,7 +75,7 @@ class UserService
 
         $userInformation["name"] = $userAndCompanyInformation["name"];
         $userInformation["email"] = $userAndCompanyInformation["email"];
-        $userInformation["password"] = md5($userAndCompanyInformation["password"]);
+        $userInformation["password"] = $userAndCompanyInformation["password"];
         $userInformation["phone"] = $userAndCompanyInformation["phone"];
         $userInformation["document"] = onlyLettersAndNumbers($userAndCompanyInformation["document"]);
         $userInformation["companyId"] = $companyId;
@@ -86,5 +93,23 @@ class UserService
 
         session()->put("unitId", $unitId);
         session()->put("shareLocation", 1);
+    }
+
+    public function getAllUserByCompanyId()
+    {
+        $userRepository = new UserRepository();
+        return $userRepository->getUsersByCompanyId(session()->get("companyId"));
+    }
+
+    public function getUserInformationByUserId($userId)
+    {
+        $userRepository = new UserRepository();
+        return $userRepository->getUserInformationById($userId);
+    }
+
+    public function saveChanges($userId, $userInformation)
+    {
+        $userRepository = new UserRepository();
+        $userRepository->saveChanges($userId, $userInformation);
     }
 }

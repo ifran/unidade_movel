@@ -71,17 +71,19 @@ Route::middleware(['login'])->group(function () {
     Route::get("company", [CompanyController::class, "index"]);
     Route::post("company/save", [CompanyController::class, "saveCompany"]);
 
-    Route::get("user", function () {
-        return view("user.index");
-    });
+    Route::get("user", [UserController::class, "index"]);
+    Route::get("user/form/{id}", [UserController::class, "edit"]);
+    Route::post("user/form/{id}", [UserController::class, "saveChanges"]);
 
     Route::get("user/form", function () {
         return view("user.form");
     });
 
-    Route::get("user/account", function () {
-        return view("user.account");
-    });
+    Route::post("user/form", [UserController::class, "saveUser"]);
+    Route::get("user/appointment", [UserController::class, "getAllAppointmentsFromLoggedUser"]);
+
+    Route::get("user/account", [UserController::class, "editLoggedUser"]);
+    Route::post("user/account", [UserController::class, "saveUser"]);
 
     Route::post("user/location/share", [UserController::class, "shareLocation"]);
 

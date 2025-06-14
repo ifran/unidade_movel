@@ -35,4 +35,9 @@ class AppointmentRepository
             ->where("agendamento.unidade_id", $unitId)
             ->get();
     }
+
+    public function getAllByUserId($userId)
+    {
+        return Agendamento::where("usuario_id", $userId)->get();
+    }
 }

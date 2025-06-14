@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AppointmentService;
 use App\Services\UserService;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        $userService = new UserService();
+        $users = $userService->getAllUserByCompanyId();
+
+        return view("user.index")
+            ->with("users", $users);
+    }
+
     public function makeLogin(Request $request)
     {
         $userService = (new UserService())->makeLogin($request->get("email"), $request->get("password"));
@@ -74,5 +84,48 @@ class UserController extends Controller
         }
 
         return redirect("/index");
+    }
+
+    public function edit(Request $request)
+    {
+        $userService = new UserService();
+        $userInformation = $userService->getUserInformationByUserId($request->route("id"));
+
+        return view("user.form")
+            ->with("userInformation", $userInformation);
+    }
+
+    public function saveChanges(Request $request)
+    {
+        $userService = new UserService();
+        $userService->saveChanges($request->route("id"), $request->all());
+
+        return redirect("user");
+    }
+
+    public function saveUser(Request $request)
+    {
+        $userService = new UserService();
+        $userService->saveAdminUser($request->all());
+
+        return redirect("user");
+    }
+
+    public function getAllAppointmentsFromLoggedUser()
+    {
+        $appointmentService = new AppointmentService();
+        $appointments = $appointmentService->getAllFromLoggedUser();
+
+        return view("user.appointment")
+            ->with("appointments", $appointments);
+    }
+
+    public function editLoggedUser()
+    {
+        $userService = new UserService();
+        $userInformation = $userService->getUserInformationByUserId(session()->get("userId"));
+
+        return view("user.account")
+            ->with("userInformation", $userInformation);
     }
 }
