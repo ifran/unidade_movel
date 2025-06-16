@@ -39,7 +39,9 @@ class AppointmentRepository
 
     public function getAllByUserId($userId)
     {
-        return Agendamento::where("usuario_id", $userId)->get();
+        return Agendamento::join("unidade", "unidade.unidade_id", "=", "agendamento.unidade_id")
+            ->where("usuario_id", $userId)
+            ->get();
     }
 
     public function changeStatus($appointmentId, $statusId)

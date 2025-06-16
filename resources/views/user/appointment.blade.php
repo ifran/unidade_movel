@@ -7,6 +7,7 @@
             <thead class="table-light">
             <tr>
                 <th>Status</th>
+                <th>Tipo</th>
                 <th>Data</th>
                 <th>Hora</th>
             </tr>
@@ -20,6 +21,7 @@
                             <option <?=$appointment->status == 3 ? "selected" : ""  ?> value="0">Cancelar</option>
                         </select>
                     </td>
+                    <td><?=$appointment->unidade_especializacao ?? null?></td>
                     <td><?=$appointment->data ?? null?></td>
                     <td><?=$appointment->hora ?? null?></td>
                 </tr>
