@@ -11,6 +11,7 @@
                         <div class="mb-3">
                             <label for="bairro" class="form-label">Selecionar Unidade</label>
                             <select name="userUnitId" id="userUnitId" class="form-control">
+                                <option>--- Selecione ---</option>
                                 @foreach ($unitsLocations as $unitsLocation)
                                     <option <?= (session()->get("unitId") !== null && session()->get("unitId") == $unitsLocation->unidade_id ? "selected" : "") ?> value="<?=$unitsLocation->unidade_id?>">
                                             <?= $unitsLocation->unidade_nome . " - " . $unitsLocation->unidade_especializacao ?>
