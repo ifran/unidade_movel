@@ -32,5 +32,11 @@
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 <body>
+<!-- Loading overlay -->
+<div id="loading" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.5); color:white; font-size:2em; text-align:center; padding-top:20%; z-index: 9999;  ">
+    Carregando...
+</div>
+
 @include("user.update-localization")
 @include("layout.menu")
