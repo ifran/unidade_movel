@@ -1,7 +1,7 @@
 <div class="modal fade" id="shareLocation" tabindex="-1" aria-labelledby="shareLocationLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="user/location/share" method="POST">
+            <form action="/user/location/share" method="POST">
                 @csrf
                 <div class="modal-header justify-content-center">
                     <h4 class="modal-title fs-3 text-center" id="shareLocationLabel">Compartilhar Localização</h4>
@@ -11,7 +11,7 @@
                         <div class="mb-3">
                             <label for="bairro" class="form-label">Selecionar Unidade</label>
                             <select name="userUnitId" id="userUnitId" class="form-control">
-                                <option>--- Selecione ---</option>
+                                <option>-- Selecione --</option>
                                 @foreach ($unitsLocations as $unitsLocation)
                                     <option <?= (session()->get("unitId") !== null && session()->get("unitId") == $unitsLocation->unidade_id ? "selected" : "") ?> value="<?=$unitsLocation->unidade_id?>">
                                             <?= $unitsLocation->unidade_nome . " - " . $unitsLocation->unidade_especializacao ?>

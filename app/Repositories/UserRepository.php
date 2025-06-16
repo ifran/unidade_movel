@@ -69,6 +69,14 @@ class UserRepository
         $user->save();
     }
 
+    public function stopUpdateLocation()
+    {
+        $user = Usuario::find(session()->get("userId"));
+        $user->usuario_localizacao_compartilhada = 0;
+        $user->unidade_id = null;
+        $user->save();
+    }
+
     public function savePatientUser($patientInformation)
     {
         $user = new Usuario();

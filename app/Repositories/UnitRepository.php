@@ -44,4 +44,15 @@ class UnitRepository
                 "unidade_especializacao" => $unitInformation["especializacao"],
             ]);
     }
+
+    public function delete($unitId)
+    {
+        try {
+            return Unidade::where("unidade_id", $unitId)
+                ->where("empresa_id", session()->get("companyId"))
+                ->delete();
+        } catch (\Exception $e) {
+            return false;
+        }
+    }
 }

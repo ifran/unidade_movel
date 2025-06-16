@@ -60,6 +60,7 @@ Route::middleware(['login'])->group(function () {
     Route::get("unit/form/{id}", [UnitController::class, "edit"]);
     Route::get("unit/schedule/{id}", [UnitController::class, "getAllUnitScheduleByUnitId"]);
     Route::get("unit/schedules/appointments/{id}", [UnitController::class, "getAllUnitAppointmentsByUnitId"]);
+    Route::get("unit/delete/{id}", [UnitController::class, "delete"]);
 
     Route::post("unit/save", [UnitController::class, "saveNewUnit"]);
     Route::post("unit/save/{id}", [UnitController::class, "saveEditUnit"]);
@@ -67,6 +68,8 @@ Route::middleware(['login'])->group(function () {
     Route::get("schedule/delete/{id}", [ScheduleController::class, "deleteSchedule"]);
     Route::post("schedule/save", [ScheduleController::class, "saveSchedule"]);
     Route::post("schedule/appointment/save", [ScheduleController::class, "saveAppointment"]);
+
+    Route::post("appointment/status/{appointmentId}/{statusId}", [ScheduleController::class, "saveAppointmentStatus"]);
 
     Route::get("company", [CompanyController::class, "index"]);
     Route::post("company/save", [CompanyController::class, "saveCompany"]);
@@ -86,6 +89,8 @@ Route::middleware(['login'])->group(function () {
     Route::post("user/account", [UserController::class, "saveUser"]);
 
     Route::post("user/location/share", [UserController::class, "shareLocation"]);
+    Route::get("user/location/share/stop", [UserController::class, "stopSharingLocation"]);
+
 
     Route::get("logout", function () {
         session()->invalidate();

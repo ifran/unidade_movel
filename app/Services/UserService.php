@@ -16,6 +16,7 @@ class UserService
             session()->put("unitId", $userRepository->unidade_id);
             session()->put("companyId", $userRepository->empresa_id);
             session()->put("userType", $userRepository->usuario_tipo);
+            session()->put("shareLocation", $userRepository->usuario_localizacao_compartilhada);
 
             return true;
         }
@@ -93,6 +94,15 @@ class UserService
 
         session()->put("unitId", $unitId);
         session()->put("shareLocation", 1);
+    }
+
+    public function stopSharingLocation()
+    {
+        $userRepository = new UserRepository();
+        $userRepository->stopUpdateLocation();
+
+        session()->put("unitId", null);
+        session()->put("shareLocation", 0);
     }
 
     public function getAllUserByCompanyId()

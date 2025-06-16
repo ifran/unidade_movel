@@ -14,6 +14,13 @@ if (!function_exists('isAdmin')) {
     }
 }
 
+if (!function_exists('isSharingLocation')) {
+    function isSharingLocation(): bool
+    {
+        return session()->get("shareLocation") !== null && session()->get("shareLocation") === 1;
+    }
+}
+
 if (!function_exists('pre')) {
     function pre($params): void
     {
@@ -28,4 +35,9 @@ if (!function_exists('onlyLettersAndNumbers')) {
     {
         return preg_replace('/[^a-zA-Z0-9]/', '', $string);
     }
+}
+
+function dateToShow($date): string
+{
+    return date('d/m/Y', strtotime($date));
 }

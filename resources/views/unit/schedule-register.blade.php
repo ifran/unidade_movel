@@ -5,7 +5,7 @@
             <div class="modal-header justify-content-center">
                 <h4 class="modal-title fs-4 text-center" id="scheduleUnitModalLabel">Agendar Disponibilidade</h4>
             </div>
-            <form action="schedule/save" method="POST">
+            <form action="/schedule/save" method="POST">
                 @csrf
                 <input type="hidden" name="unitId" id="unitId">
                 <div class="modal-body">

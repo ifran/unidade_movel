@@ -108,4 +108,16 @@ class UnitService
             "appointmentCounts" => $appointmentCounts,
         ];
     }
+
+    public function delete($unitId)
+    {
+        $unitRepository = new UnitRepository();
+        $ok = $unitRepository->delete($unitId);
+
+        if (!$ok) {
+            return "Não foi possível deletar. Revisar se existem agendas ou agendamentos";
+        }
+
+        return $ok;
+    }
 }

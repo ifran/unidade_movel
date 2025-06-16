@@ -30,14 +30,22 @@ class AppointmentRepository
 
     public function getAllByUnit($unitId)
     {
-        return Agendamento::select(["agendamento.data", "agendamento.hora", "usuario_nome", "agendamento.status"])
+        return Agendamento::select(["agendamento.agendamento_id", "agendamento.data", "agendamento.hora", "usuario_nome", "agendamento.status"])
             ->join("usuario", "usuario.usuario_id", "=", "agendamento.usuario_id")
             ->where("agendamento.unidade_id", $unitId)
+            ->where("status", Agendamento::WAITING)
             ->get();
     }
 
     public function getAllByUserId($userId)
     {
         return Agendamento::where("usuario_id", $userId)->get();
+    }
+
+    public function changeStatus($appointmentId, $statusId)
+    {
+        $appointment = Agendamento::find($appointmentId);
+        $appointment->status = $statusId;
+        $appointment->save();
     }
 }

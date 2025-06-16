@@ -69,4 +69,12 @@ class UnitController extends Controller
         $appointmentService = new AppointmentService();
         return response()->json(["success" => true, "data" => $appointmentService->getAllByUnit($unitId)]);
     }
+
+    public function delete(Request $request)
+    {
+        $unitService = new UnitService();
+        $error = $unitService->delete($request->route("id"));
+
+        return redirect("unit")->with("error", $error);
+    }
 }

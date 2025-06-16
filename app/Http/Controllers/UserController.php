@@ -73,6 +73,14 @@ class UserController extends Controller
         return redirect("index");
     }
 
+    public function stopSharingLocation()
+    {
+        $userService = new UserService();
+        $userService->stopSharingLocation();
+
+        return redirect("index");
+    }
+
     public function savePatient(Request $request)
     {
         $userService = new UserService();

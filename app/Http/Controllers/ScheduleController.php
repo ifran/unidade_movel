@@ -32,4 +32,10 @@ class ScheduleController extends Controller
 
         return redirect("/unit/schedule/" . $request->get("unitId"));
     }
+
+    public function saveAppointmentStatus(Request $request)
+    {
+        $appointment = new AppointmentService();
+        $appointment->changeAppointmentStatus($request->route("appointmentId"), $request->route("statusId"));
+    }
 }

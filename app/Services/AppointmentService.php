@@ -20,28 +20,25 @@ class AppointmentService
 
         $return = [];
         foreach ($appointments as $key => $appointment) {
-            $return[$key]["date"] =  $appointment->data;
+            $return[$key]["date"] = dateToShow($appointment->data);
             $return[$key]["time"] =  $appointment->hora;
             $return[$key]["patientName"] =  $appointment->usuario_nome;
-            $return[$key]["status"] = $this->getAppointmentStatusNameByStatusId($appointment->status);
+            $return[$key]["status"] = $appointment->status;
+            $return[$key]["id"] = $appointment->agendamento_id;
         }
 
         return $return;
-    }
-
-    private function getAppointmentStatusNameByStatusId($statusId): string
-    {
-        switch ($statusId) {
-            case Agendamento::WAITING:
-                return "Aguardando";
-            default:
-                return "";
-        }
     }
 
     public function getAllFromLoggedUser()
     {
         $appointmentRepository = new AppointmentRepository();
         return $appointmentRepository->getAllByUserId(session()->get("userId"));
+    }
+
+    public function changeAppointmentStatus($appointmentId, $statusId)
+    {
+        $appointmentRepository = new AppointmentRepository();
+        $appointmentRepository->changeStatus($appointmentId, $statusId);
     }
 }

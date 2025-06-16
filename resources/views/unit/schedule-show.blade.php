@@ -1,3 +1,9 @@
+<!-- Loading overlay -->
+<div id="loading" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.5); color:white; font-size:2em; text-align:center; padding-top:20%; z-index: 9999;  ">
+    Carregando...
+</div>
+
 <div class="modal fade" id="showSchedule" tabindex="-1" aria-labelledby="showScheduleLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -66,10 +72,16 @@
                         const row = document.createElement('tr');
 
                         row.innerHTML = `
+                        <td>
+                            <select class="form-control sm" id="selectStatus" onchange="updateStatus(` + schedule.id + `, this.value)">
+                                <option ` + (schedule.status === 1 ? ` selected ` : ``) + ` value="1">Aguardando Atendimento</option>
+                                <option ` + (schedule.status === 2 ? ` selected ` : ``) + ` value="2">Atendido</option>
+                                <option ` + (schedule.status === 3 ? ` selected ` : ``) + ` value="3">Não Compareceu</option>
+                            </select>
+                        </td>
+                        <td>${schedule.patientName}</td>
                         <td>${schedule.date}</td>
                         <td>${schedule.time}</td>
-                        <td>${schedule.patientName}</td>
-                        <td>${schedule.status}</td>
                     `;
                         tableBody.appendChild(row);
                     });
@@ -81,4 +93,28 @@
                 console.error('Erro ao carregar agendamentos:', error);
             });
     });
+
+    function updateStatus(appointmentId, statusId) {
+        const loading = document.getElementById('loading');
+        loading.style.display = 'block';
+
+        fetch('/appointment/status/' + appointmentId + '/' + statusId, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}' // se Laravel
+            },
+            body: JSON.stringify({ativado: this.checked})
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Sucesso:', data);
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            })
+            .finally(() => {
+                loading.style.display = 'none';
+            });
+    }
 </script>

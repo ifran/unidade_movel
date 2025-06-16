@@ -26,11 +26,15 @@
                         @if (isLogged())
                             @if (isAdmin())
                                 <li class="nav-item mb-1">
-                                    <button type="button" class="btn btn-primary me-2"
-                                            data-bs-toggle="modal" data-id="456"
-                                            data-bs-target="#shareLocation">
-                                        Compartilhar Localização
-                                    </button>
+                                    @if (isSharingLocation())
+                                        <a href="/user/location/share/stop" class="btn btn-danger me-2">Parar de Compartilhar Local</a>
+                                    @else
+                                        <button type="button" class="btn btn-primary me-2"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#shareLocation">
+                                                 Compartilhar Localização
+                                        </button>
+                                    @endif
                                 </li>
                             @endif
                             <li class="nav-item mb-1">
