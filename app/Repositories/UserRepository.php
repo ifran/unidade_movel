@@ -22,12 +22,18 @@ class UserRepository
 
     public function getLastUpdatedLocalization()
     {
-        return Usuario::select(["unidade.unidade_id", "unidade.unidade_especializacao", "usuario_lat", "usuario_long"])
+        $limit = (new \DateTime())->sub(new \DateInterval('PT30M'))->format('Y-m-d H:i:s');
+
+        $user = Usuario::select(["unidade.unidade_id", "unidade.unidade_especializacao", "usuario_lat", "usuario_long"])
             ->join("unidade", "unidade.unidade_id", "=", "usuario.unidade_id")
-            ->where("usuario_id", "<>", session()->get("userId"))
-            ->whereRaw("usuario_updated_at >= NOW() - INTERVAL 30 MINUTE")
-            ->where("usuario_localizacao_compartilhada", 1)
-            ->get();
+            ->whereRaw("usuario_updated_at >= '$limit'")
+            ->where("usuario_localizacao_compartilhada", 1);
+
+        if (session()->get("userId") !== null) {
+            $user->where("usuario_id", "<>", session()->get("userId"));
+        }
+
+        return $user->get();
     }
 
     public function saveAdminUser($userInformation): int
