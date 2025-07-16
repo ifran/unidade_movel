@@ -16,11 +16,15 @@
             @foreach ($appointments as $appointment)
                 <tr>
                     <td>
-                        <select class="form-control sm" onchange="updateStatus(<?=$appointment->agendamento_id?>, this.value)">
-                            <option <?= $appointment->status == 1 ? "selected" : "" ?>value="1">Aguardando Atendimento
-                            </option>
-                            <option <?= $appointment->status == 3 ? "selected" : "" ?> value="3">Cancelado</option>
-                        </select>
+                        @if ($appointment->status == 2)
+                            <label class="badge bg-success">Atendido</label>
+                        @else
+                            <select class="form-control sm" onchange="updateStatus(<?=$appointment->agendamento_id?>, this.value)">
+                                <option <?= $appointment->status == 1 ? "selected" : "" ?>value="1">Aguardando Atendimento
+                                </option>
+                                <option <?= $appointment->status == 3 ? "selected" : "" ?> value="3">Cancelado</option>
+                            </select>
+                        @endif
                     </td>
                     <td><?= $appointment->unidade_especializacao ?? null ?></td>
                     <td><?= dateToShow($appointment->data) ?? null ?></td>

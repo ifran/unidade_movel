@@ -20,4 +20,5 @@ class Agendamento extends Model
     ];
 
     const WAITING = 1;
+    const CONCLUDED = 2;
 }
