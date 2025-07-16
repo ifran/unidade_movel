@@ -64,6 +64,30 @@ class UserRepository
         return $user->usuario_id;
     }
 
+    public function saveNewAdminUser($userInformation): int
+    {
+        $user = Usuario::firstOrNew([
+            "usuario_email" => $userInformation["email"]
+        ]);
+
+        $user->empresa_id = $userInformation["companyId"];
+        $user->usuario_nome = $userInformation["name"];
+
+        if (!empty($userInformation["password"])) {
+            if ($user->usuario_senha !== $userInformation["password"]) {
+                $user->usuario_senha = md5($userInformation["password"]);
+            }
+        }
+
+        $user->usuario_telefone = $userInformation["phone"];
+        $user->usuario_cpf = $userInformation["document"];
+        $user->usuario_tipo = Usuario::TYPE_ADMIN;
+
+        $user->save();
+
+        return $user->usuario_id;
+    }
+
     public function getUserShareLocationConfiguration()
     {
         return Usuario::find(session()->get("userId"))->usuario_localizacao_compartilhada;

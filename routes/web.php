@@ -82,7 +82,7 @@ Route::middleware(['login'])->group(function () {
         return view("user.form");
     });
 
-    Route::post("user/form", [UserController::class, "saveUser"]);
+    Route::post("user/form", [UserController::class, "saveNewUser"]);
     Route::get("user/appointment", [UserController::class, "getAllAppointmentsFromLoggedUser"]);
 
     Route::get("user/account", [UserController::class, "editLoggedUser"]);

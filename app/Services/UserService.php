@@ -47,6 +47,13 @@ class UserService
         $userRepository->saveAdminUser($userInformation);
     }
 
+    public function saveNewAdminUser($userInformation)
+    {
+        $userInformation["companyId"] = session()->get("companyId");
+        $userRepository = new UserRepository();
+        $userRepository->saveNewAdminUser($userInformation);
+    }
+
     public function getAllOnlineLocalization(): array
     {
         $localizations = (new UserRepository())->getLastUpdatedLocalization();

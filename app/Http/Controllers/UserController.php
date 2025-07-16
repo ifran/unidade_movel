@@ -119,6 +119,14 @@ class UserController extends Controller
         return redirect("user");
     }
 
+    public function saveNewUser(Request $request)
+    {
+        $userService = new UserService();
+        $userService->saveNewAdminUser($request->all());
+
+        return redirect("user");
+    }
+
     public function getAllAppointmentsFromLoggedUser()
     {
         $appointmentService = new AppointmentService();
